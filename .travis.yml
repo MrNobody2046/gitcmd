@@ -1,27 +1,25 @@
 # this file is *not* meant to cover or endorse the use of travis, but rather to
 # help confirm pull requests to this project.
 
+
 language: python
 python: 2.7
 sudo: false
 branches:
   only:
-    - master
+  - master
 env:
- - TOXENV=py27
+- TOXENV=py27
 install:
- - pip install -U tox twine wheel codecov
+- pip install -U tox twine wheel codecov
 script: tox
 after_success:
-  - codecov
+- codecov
 deploy:
-provider: pypi
-distributions: "sdist bdist_wheel"
-user: scrapy
-password:
-  secure: JaAKcy1AXWXDK3LXdjOtKyaVPCSFoCGCnW15g4f65E/8Fsi9ZzDfmBa4Equs3IQb/vs/if2SVrzJSr7arN7r9Z38Iv1mUXHkFAyA3Ym8mThfABBzzcUWEQhIHrCX0Tdlx9wQkkhs+PZhorlmRS4gg5s6DzPaeA2g8SCgmlRmFfA=
-on:
-  tags: true
-  all_branches: true
-  repo: scrapy/scrapy
-  condition: "$TOXENV == py27 && $TRAVIS_TAG =~ ^[0-9]+[.][0-9]+[.][0-9]+(rc[0-9]+)?$"
+  provider: pypi
+  user: sphys
+  password:
+    secure: E9ag7h4fl3dxgHMMVM3AYf8F/WtIzIceGiuzb9N/uJQW+M+J9I8OKAhJYUC21MdaGHDKO7mIh37XmXsM8eJx4ZJLj0ga3ZTVLE7Ofz3whpdjaDQW0ZhAu073YpbS3LjjstIbvbSnS9tYtNKb07/NYILNevvcojf1xwtWYyWj6ki+xBqLF6LuckuUMaSC2NnrYRFmwlMWblSdDY1myQXIHM7RiixeZBoGerbCsu9zt2CoI9dj0cqbtRwytGZVtCBViFIQ3+5nOq8qE4yFS0mwlC2ht0AyxuuLqjGx6rjiJRbxJl2zp6wLM6Bc3nPTAfXmDOvnBdmMGRNrKlRf1onXO0Ospu/OLUas8NyeZBkwKdSirNdo6TibU4/HjzL6bN0D98rGQOy3Ni8aRJStR5eGOks8Leg90JjGcDZA9YIXMBp0cBI6Khg5ozq/DlK9WPoN8VW9MBN+IP1mEGs5rkbVdC0s/cuiQRRwF5CVpTO+IxNxJS5RfRoFaF6KUz0eoqpouIQyldO1o6eEC/gFlL9LzsxWaqsgRvNz3d3vKYDT7CvhnggBCgpbu2GdwSbAZakSgL112/+/LjJ7sIDFM3K/DskMK0rq2TMQcjUNRwYx+upNpuaZAe/tO+mYSWS7HqOtH+k4nqlGVPeWiwD2jWhAAWwBkkwX1NS+WT/uysntnoI=
+  on:
+    tags: true
+    repo: philoprove/gitcmd
