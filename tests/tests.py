@@ -1,19 +1,37 @@
-from git-cmd.gitcmd import GitExec
+from gitcmd import GitCmd
 import unittest
+import os
+
+
+class TestHttpsClone(unittest.TestCase):
+    testDir = "./__test"
+
+    def setUp(self):
+        self.gc = GitCmd(work_dir=self.testDir, url='https://github.com/philoprove/gitcmd')
+        self.gc.clone()
+        assert os.path.exists(self.testDir)
+        assert os.path.exists(self.testDir + '/README.rst')
+
+    def testPull(self):
+        self.gc.pull()
+
+    def tearDown(self):
+        os.popen("rm -rf " + self.testDir)
 
 
 
+class TestSSHClone(unittest.TestCase):
+    testDir = "./__test"
 
+    def setUp(self):
+        self.gc = GitCmd(work_dir=self.testDir, url='git@github.com:philoprove/gitcmd.git')
+        self.gc.clone()
+        assert os.path.exists(self.testDir)
+        assert os.path.exists(self.testDir + '/README.rst')
 
+    def testPull(self):
+        self.gc.pull()
 
-class TestAll(unittest.TestCase):
-    pass
+    def tearDown(self):
+        os.popen("rm -rf " + self.testDir)
 
-
-
-if __name__ == "__main__":
-    ge = GitExec('./wddt', "pipeline", "vrBfv2vhLbA6DzLF",
-             'http://gitlab.breadtrip.com:1280/zhangyu/PipelineDemoServer.git')
-    ge.checkout("7085cae918f45eec6470cffc966d1a884ebbcda1")
-    ge.checkout()
-    ge.pull()
