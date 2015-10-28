@@ -2,6 +2,12 @@ from gitcmd import GitCmd
 import unittest
 import os
 
+def only_local(cls):
+    if os.environ.get("USER") == 'sphy':
+        return cls
+    else:
+        return None
+
 
 class TestHttpsClone(unittest.TestCase):
     testDir = "./__test"
@@ -19,7 +25,7 @@ class TestHttpsClone(unittest.TestCase):
         os.popen("rm -rf " + self.testDir)
 
 
-
+@only_local
 class TestSSHClone(unittest.TestCase):
     testDir = "./__test"
 
