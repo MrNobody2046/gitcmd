@@ -14,7 +14,7 @@ setup(
     description='',
     long_description=long_description,
 
-    url='https://github.com/philoprove/git-cmd',
+    url='https://github.com/philoprove/gitcmd',
 
     author='Kenny Zhang',
     author_email='sphy@foxmail.com',
@@ -28,7 +28,7 @@ setup(
     ],
 
     keywords='git gitlab github ',
-    packages=find_packages(exclude=['contrib', 'docs', 'tests']),
+    packages=['gitcmd'],
 
     install_requires=['pexpect'],
 )
