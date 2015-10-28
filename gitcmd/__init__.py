@@ -20,6 +20,17 @@ class GitCmd(object):
     check_auth_timeout = 1
 
     def __init__(self, work_dir=".", user="", pwd="", url=""):
+        """
+        :param work_dir: repository dir, this dir can be the
+        exist dir if you want execute commands manage git repo.
+        and if dir not exist , you must use .clone method first
+        to create this dir
+        :param user: username in case of auth
+        :param pwd: password in case of auth
+        :param url: git repository's url
+        """
+        if not work_dir and url:
+            raise Exception("Must have repository ")
         self.user = user
         self.pwd = pwd
         self.work_dir = work_dir
