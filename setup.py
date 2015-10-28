@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='gitcmd',
-    version='0.1.0.dev1',
+    version='1.0.0.dev1',
 
     description='',
     long_description=long_description,

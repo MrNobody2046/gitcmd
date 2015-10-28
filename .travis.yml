@@ -8,6 +8,8 @@ sudo: false
 branches:
   only:
   - master
+  - relase
+  - /^\d\.\d+$/
 env:
 - TOXENV=py27
 install:
