@@ -5,7 +5,6 @@ branches:
   only:
   - release
   - master
-  - /^\d\.\d+$/
 env:
 - TOXENV=py27
 install:
