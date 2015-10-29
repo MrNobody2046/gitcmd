@@ -1,7 +1,3 @@
-# this file is *not* meant to cover or endorse the use of travis, but rather to
-# help confirm pull requests to this project.
-
-
 language: python
 python: 2.7
 sudo: false
@@ -9,6 +5,7 @@ branches:
   only:
   - master
   - relase
+  - develop
   - /^\d\.\d+$/
 env:
 - TOXENV=py27
@@ -19,9 +16,10 @@ after_success:
 - codecov
 deploy:
   provider: pypi
-  user: sphys
+  user: sphy
   password:
-    secure: E9ag7h4fl3dxgHMMVM3AYf8F/WtIzIceGiuzb9N/uJQW+M+J9I8OKAhJYUC21MdaGHDKO7mIh37XmXsM8eJx4ZJLj0ga3ZTVLE7Ofz3whpdjaDQW0ZhAu073YpbS3LjjstIbvbSnS9tYtNKb07/NYILNevvcojf1xwtWYyWj6ki+xBqLF6LuckuUMaSC2NnrYRFmwlMWblSdDY1myQXIHM7RiixeZBoGerbCsu9zt2CoI9dj0cqbtRwytGZVtCBViFIQ3+5nOq8qE4yFS0mwlC2ht0AyxuuLqjGx6rjiJRbxJl2zp6wLM6Bc3nPTAfXmDOvnBdmMGRNrKlRf1onXO0Ospu/OLUas8NyeZBkwKdSirNdo6TibU4/HjzL6bN0D98rGQOy3Ni8aRJStR5eGOks8Leg90JjGcDZA9YIXMBp0cBI6Khg5ozq/DlK9WPoN8VW9MBN+IP1mEGs5rkbVdC0s/cuiQRRwF5CVpTO+IxNxJS5RfRoFaF6KUz0eoqpouIQyldO1o6eEC/gFlL9LzsxWaqsgRvNz3d3vKYDT7CvhnggBCgpbu2GdwSbAZakSgL112/+/LjJ7sIDFM3K/DskMK0rq2TMQcjUNRwYx+upNpuaZAe/tO+mYSWS7HqOtH+k4nqlGVPeWiwD2jWhAAWwBkkwX1NS+WT/uysntnoI=
+    secure: lTWN+xoJQi2KHm1jv7ftIapynUaEdv5qFqVm45Lvf4KzS+XC8dnrhn4HEJzgOmFu1pQchbJFV3iLz2pF8grVeetuyNMi50Aqn8NCIbiBtM6qi+5bgIVOyoj/9tb1tOFe8rxFRmFfkuIl2vZrKaF2XxZIXW/mcqB1rv+tGIzbyZ8eEhTxy5OH+N3ElLu6rWHZHLZsCPQd40Ghw/r4igTIKcFORR/AsWXIX9qmjZoFaDhpnzVg5MASTaR41mJxV1A/jYsW/6JEu9Cn/OdlVKtoYLMag5RDNISFslTXssW/wcNnLMd1MUNX2+X7TgUXdObsjrAQW+f/SM7da/v/Ik0S2UpDy1bH3ZrQz9X4tDH2tvnnAQa4bS8nipm6r8MsHXbqZLNO7IQdFWZfZLS34wHSacDD8RNAll9mCbyGFIHYDoWE6jxSCZF9pO3+W8c1Po8xZ+aDxMxNipl4+1waAKHlZjmR3xpZd4Ke0qlVHfur/St5pAsa099y1aKkwUcegft3IBfvYc54wZU0ksV2+3VJYBQnz3PXjOKUvKTtxIdh4mhUuALQo1VyxkRR4HuXAvrp4pPbVTYLsUp1/fdfACEakRZvTHKgkdvpFZGrHWUZHuxLm4Xqi6x3bNDLZ/WZYHfTZttV2WNRIzvgChbn+J4EdyCxSbeRRWFzhdVEd40w2i0=
   on:
-    tags: true
+    tags: false
     repo: philoprove/gitcmd
+    branch: relase
