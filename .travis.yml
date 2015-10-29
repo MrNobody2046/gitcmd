@@ -4,7 +4,7 @@ sudo: false
 branches:
   only:
   - master
-  - relase
+  - release
   - develop
   - /^\d\.\d+$/
 env:
@@ -22,4 +22,4 @@ deploy:
   on:
     tags: false
     repo: philoprove/gitcmd
-    branch: relase
+    branch: release
