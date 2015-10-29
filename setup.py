@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='gitcmd',
-    version='1.22.0.dev1',
+    version='1.0.1',
 
     description='',
     long_description=long_description,
@@ -20,14 +20,14 @@ setup(
     author_email='sphy@foxmail.com',
     license='MIT',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
-        'Topic :: Software Development :: Build Tools',
+        'Topic :: Software Development :: Version Control :: CVS',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2',
     ],
 
-    keywords='git gitlab github ',
+    keywords='git gitlab github',
     packages=['gitcmd'],
 
     install_requires=['pexpect'],
