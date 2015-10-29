@@ -9,9 +9,9 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='gitcmd',
-    version='1.0.1',
+    version='1.0.0',
 
-    description='',
+    description='a wrapper of git command',
     long_description=long_description,
 
     url='https://github.com/philoprove/gitcmd',
@@ -20,14 +20,14 @@ setup(
     author_email='sphy@foxmail.com',
     license='MIT',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
-        'Topic :: Software Development :: Version Control :: CVS',
+        'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2',
     ],
 
-    keywords='git gitlab github',
+    keywords='git gitlab github ',
     packages=['gitcmd'],
 
     install_requires=['pexpect'],
