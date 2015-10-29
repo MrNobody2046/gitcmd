@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='gitcmd',
-    version='1.0.0',
+    version='1.0.1rc0',
 
     description='a wrapper of git command',
     long_description=long_description,
@@ -22,9 +22,11 @@ setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
+        'Environment :: Console',
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
     ],
 
     keywords='git gitlab github ',

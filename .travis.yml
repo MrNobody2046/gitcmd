@@ -15,6 +15,7 @@ after_success:
 - codecov
 deploy:
   provider: pypi
+  distributions: "sdist bdist_wheel"
   user: sphy
   password:
     secure: lTWN+xoJQi2KHm1jv7ftIapynUaEdv5qFqVm45Lvf4KzS+XC8dnrhn4HEJzgOmFu1pQchbJFV3iLz2pF8grVeetuyNMi50Aqn8NCIbiBtM6qi+5bgIVOyoj/9tb1tOFe8rxFRmFfkuIl2vZrKaF2XxZIXW/mcqB1rv+tGIzbyZ8eEhTxy5OH+N3ElLu6rWHZHLZsCPQd40Ghw/r4igTIKcFORR/AsWXIX9qmjZoFaDhpnzVg5MASTaR41mJxV1A/jYsW/6JEu9Cn/OdlVKtoYLMag5RDNISFslTXssW/wcNnLMd1MUNX2+X7TgUXdObsjrAQW+f/SM7da/v/Ik0S2UpDy1bH3ZrQz9X4tDH2tvnnAQa4bS8nipm6r8MsHXbqZLNO7IQdFWZfZLS34wHSacDD8RNAll9mCbyGFIHYDoWE6jxSCZF9pO3+W8c1Po8xZ+aDxMxNipl4+1waAKHlZjmR3xpZd4Ke0qlVHfur/St5pAsa099y1aKkwUcegft3IBfvYc54wZU0ksV2+3VJYBQnz3PXjOKUvKTtxIdh4mhUuALQo1VyxkRR4HuXAvrp4pPbVTYLsUp1/fdfACEakRZvTHKgkdvpFZGrHWUZHuxLm4Xqi6x3bNDLZ/WZYHfTZttV2WNRIzvgChbn+J4EdyCxSbeRRWFzhdVEd40w2i0=
@@ -22,3 +23,4 @@ deploy:
     tags: false
     repo: philoprove/gitcmd
     branch: release
+    condition: "$TOXENV == py27 && $TRAVIS_TAG =~ ^[0-9]+[.][0-9]+[.][0-9]+(rc[0-9]+)?$"
