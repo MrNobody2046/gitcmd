@@ -9,9 +9,8 @@ def only_local(cls):
     else:
         return None
 
-
 class TestHttpsClone(unittest.TestCase):
-    testDir = "./__test"
+    testDir = "./__testHttpsClone"
 
     def setUp(self):
         self.gc = GitCmd(work_dir=self.testDir, url='https://github.com/philoprove/gitcmd')
@@ -31,7 +30,7 @@ class TestHttpsClone(unittest.TestCase):
 
 @only_local
 class TestSSHClone(TestHttpsClone):
-    testDir = "./__test"
+    testDir = "./__testSSHClone"
 
     def setUp(self):
         self.gc = GitCmd(work_dir=self.testDir, url='git@github.com:philoprove/gitcmd.git')
@@ -48,6 +47,8 @@ class TestSSHClone(TestHttpsClone):
 
 @only_local
 class TestGitLabClone(TestHttpsClone):
+    testDir = "./__testGitLabClone"
+
     def setUp(self):
         """
         put this file in local test dir:
