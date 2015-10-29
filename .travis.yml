@@ -3,7 +3,6 @@ python: 2.7
 sudo: false
 branches:
   only:
-  - master
   - release
   - develop
   - /^\d\.\d+$/
@@ -22,4 +21,4 @@ deploy:
   on:
     tags: false
     repo: philoprove/gitcmd
-    branch: release
+    branch: develop
