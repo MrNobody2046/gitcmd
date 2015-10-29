@@ -21,4 +21,4 @@ deploy:
   on:
     tags: false
     repo: philoprove/gitcmd
-    branch: develop
+    branch: release
