@@ -20,7 +20,7 @@ class GitCmd(object):
     authorize with git server if necessary
     """
     debug = 0
-    check_auth_timeout = 1
+    check_auth_timeout = 10
 
     def __init__(self, work_dir=".", user="", pwd="", url=""):
         """
@@ -63,6 +63,13 @@ class GitCmd(object):
     def pull(self, timeout=60):
         return self.wait_transfer_end(self.execute(cmd="git pull", wait=False), timeout)
 
+    def fetch(self, timeout=60):
+        ch = self.execute(cmd="git fetch")
+        if ch.exitstatus == 0:
+            return True
+        else:
+            return False
+
     def execute(self, cmd="git status", wait=True, timeout=60):
         self.need_work_dir()
         with working_directory(self.work_dir):
@@ -74,26 +81,27 @@ class GitCmd(object):
                 self.wait(child, timeout)
             return child
 
-    def checkout(self, commit_id="master", timeout=3):
+    def checkout(self, commit_id="master", timeout=60, force=False):
         """
         :param commit_id:
         :return: Fasle checkout failed
                  True checkout not specified or success
         """
-        ch = self.execute("git checkout %s" % commit_id, timeout=timeout)
+        _c = "git checkout %s " % commit_id
+        if force:
+            _c += ' -f'
+        ch = self.execute(_c, timeout=timeout)
         cc = self.current_commit()
         if cc and commit_id in ['master', cc]:
             return True
         else:
             return False
 
-    def reset(self, commit_id="", timeout=3):
+    def reset(self, commit_id="", timeout=10):
         ch = self.execute("git reset --hard %s" % commit_id, wait=False)
-        try:
-            ch.expect('HEAD is now .*', timeout=timeout)
+        if ch.expect(['HEAD is now .*', 'fatal: [\S\s]*', pexpect.EOF], timeout=timeout) != 1:
             return True
-        except:
-            return False
+        return False
 
     def wait(self, ch, timeout):
         _t = time.time()
