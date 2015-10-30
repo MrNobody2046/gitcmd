@@ -54,13 +54,13 @@ class GitCmd(object):
                 print e
         return ch
 
-    def clone(self, timeout=600):
+    def clone(self, timeout=60):
         if os.path.exists(self.work_dir):
             raise Exception("git repo's dir already exist")
         pexpect.run("mkdir -p %s" % self.work_dir)
         return self.wait_transfer_end(self.execute('git clone %s .' % self.url, wait=False), timeout)
 
-    def pull(self, timeout=600):
+    def pull(self, timeout=60):
         return self.wait_transfer_end(self.execute(cmd="git pull", wait=False), timeout)
 
     def execute(self, cmd="git status", wait=True, timeout=60):
@@ -74,7 +74,7 @@ class GitCmd(object):
                 self.wait(child, timeout)
             return child
 
-    def checkout(self, commit_id="master", timeout=180):
+    def checkout(self, commit_id="master", timeout=3):
         """
         :param commit_id:
         :return: Fasle checkout failed
@@ -87,7 +87,7 @@ class GitCmd(object):
         else:
             return False
 
-    def reset(self, commit_id="", timeout=10):
+    def reset(self, commit_id="", timeout=3):
         ch = self.execute("git reset --hard %s" % commit_id, wait=False)
         try:
             ch.expect('HEAD is now .*', timeout=timeout)
@@ -97,7 +97,7 @@ class GitCmd(object):
 
     def wait(self, ch, timeout):
         _t = time.time()
-        while not ch.closed:
+        while ch.isalive():
             try:
                 self.expect_eof(ch, 1)
                 ch.close()
@@ -117,7 +117,6 @@ class GitCmd(object):
     def wait_transfer_end(self, ch, timeout):
         flag = ch.expect(['Checking connectivity... done.', 'Already up-to-date.\r\n', 'fatal: [\S\s]*', pexpect.EOF, ],
                          timeout=timeout)
-        print ">>>>>FLAG", flag
         if flag in (0, 1):
             self.wait(ch, timeout)
             return ch
