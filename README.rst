@@ -46,7 +46,7 @@ Usage
     from gitcmd import GitCmd
     clone_to = 'mydir'
     url = "https://github.com/philoprove/gitcmd.git"
-    ge = GitCmd(work_dir=clone_to, url=url)
+    gitcmd = GitCmd(work_dir=clone_to, url=url)
 
 if you clone with ssh, you may need config ssh key at first.
 
@@ -55,13 +55,13 @@ if you clone with ssh, you may need config ssh key at first.
 
     from gitcmd import GitCmd
     import os
-    ge = GitCmd(work_dir="clone_to_where", url="", user="user",pwd="pwd")
+    gitcmd = GitCmd(work_dir="clone_to_where", url="", user="user",pwd="pwd")
     
     # work dir should be either empty or not exists
-    ge.clone()
+    gitcmd.clone()
     
     
     # after repository was cloned to local , you can execute other commands
-    ge.checkout()
-    ge.pull()
-    ge.execute("git diff ...")
+    gitcmd.checkout()
+    gitcmd.pull()
+    gitcmd.execute("git diff ...")
