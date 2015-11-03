@@ -7,7 +7,7 @@ import pexpect
 
 
 @contextlib.contextmanager
-def working_directory(path):
+def step_in_directory(path):
     prev_cwd = os.getcwd()
     os.chdir(path)
     yield
@@ -39,11 +39,17 @@ class GitCmd(object):
         self.work_dir = work_dir
         self.url = url
 
-    def need_work_dir(self):
+    def work_dir_exists(self):
         if not os.path.exists(self.work_dir):
             raise Exception("git repo's dir not exist")
 
     def auth_if_need(self, ch):
+        """
+        send username and password
+        if child process has prompts
+        :param ch:
+        :return: child process
+        """
         try:
             ch.expect("[\s\S]*?Username for .*: ", timeout=self.check_auth_timeout)
             ch.sendline(self.user)
@@ -71,8 +77,8 @@ class GitCmd(object):
             return False
 
     def execute(self, cmd="git status", wait=True, timeout=60):
-        self.need_work_dir()
-        with working_directory(self.work_dir):
+        self.work_dir_exists()
+        with step_in_directory(self.work_dir):
             child = self.auth_if_need(pexpect.spawn(cmd))
             if self.debug:
                 child.logfile = sys.stdout
@@ -104,6 +110,15 @@ class GitCmd(object):
         return False
 
     def wait(self, ch, timeout):
+        """
+        wait child process finish
+            `this will block forever if the
+            child has unread output and has terminated`
+        http://nullege.com/codes/search/pexpect.spawn.wait
+        :param ch:
+        :param timeout:
+        :return:
+        """
         _t = time.time()
         while ch.isalive():
             try:
@@ -120,9 +135,19 @@ class GitCmd(object):
         ch.expect(pexpect.EOF, timeout=timeout)
 
     def current_commit(self):
+        """
+        current commit id
+        :return:string
+        """
         return os.popen('cd %s && git rev-parse HEAD' % self.work_dir).read().strip()
 
     def wait_transfer_end(self, ch, timeout):
+        """
+        this method check transfer progress for pull & clone
+        :param ch:
+        :param timeout:
+        :return:child process if not found error
+        """
         flag = ch.expect(['Checking connectivity... done.', 'Already up-to-date.\r\n', 'fatal: [\S\s]*', pexpect.EOF, ],
                          timeout=timeout)
         if flag in (0, 1):
