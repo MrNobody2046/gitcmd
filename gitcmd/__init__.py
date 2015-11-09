@@ -8,6 +8,16 @@ import pexpect
 
 @contextlib.contextmanager
 def step_in_directory(path):
+    """
+    change current work dir to path, reset after
+    context exit.
+    eg:
+    with step_in_directory('/home/abc/'):
+        os.popen("some.sh")
+
+    :param path:
+    :return:None
+    """
     prev_cwd = os.getcwd()
     os.chdir(path)
     yield
@@ -61,15 +71,24 @@ class GitCmd(object):
         return ch
 
     def clone(self, timeout=60):
+        """
+        execute git clone, clone to work dir
+        """
         if os.path.exists(self.work_dir):
             raise Exception("git repo's dir already exist")
         pexpect.run("mkdir -p %s" % self.work_dir)
         return self.wait_transfer_end(self.execute('git clone %s .' % self.url, wait=False), timeout)
 
     def pull(self, timeout=60):
+        """
+        execute git pull in work dir
+        """
         return self.wait_transfer_end(self.execute(cmd="git pull", wait=False), timeout)
 
     def fetch(self, timeout=60):
+        """
+        execute git fetch in work dir
+        """
         ch = self.execute(cmd="git fetch")
         if ch.exitstatus == 0:
             return True
@@ -166,3 +185,6 @@ class CmdExecuteError(Exception):
     def __init__(self, ch):
         msg = 'Args:%s,Closed:%s,ExitCode:%s' % (ch.args, ch.closed, ch.exitstatus)
         super(CmdExecuteError, self).__init__(msg)
+
+
+Repository = GitCmd
