@@ -32,7 +32,7 @@ class GitCmd(object):
     debug = 0
     check_auth_timeout = 10
 
-    def __init__(self, work_dir=".", user="", pwd="", url=""):
+    def __init__(self, work_dir="", user="", pwd="", url=""):
         """
         :param work_dir: repository dir, this dir can be the
         exist dir if you want execute commands manage git repo.
@@ -42,8 +42,10 @@ class GitCmd(object):
         :param pwd: password in case of auth
         :param url: git repository's url
         """
-        if not work_dir and url:
+        if not work_dir or url:
             raise Exception("Must have repository ")
+        if url and not work_dir:
+            work_dir = url.rsplit(".git", 1)[0].rsplit("/", 1)[1]
         self.user = user
         self.pwd = pwd
         self.work_dir = work_dir
@@ -186,5 +188,5 @@ class CmdExecuteError(Exception):
         msg = 'Args:%s,Closed:%s,ExitCode:%s' % (ch.args, ch.closed, ch.exitstatus)
         super(CmdExecuteError, self).__init__(msg)
 
-
-Repository = GitCmd
+class Repository(GitCmd):
+    pass
