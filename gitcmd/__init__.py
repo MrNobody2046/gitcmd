@@ -42,7 +42,7 @@ class GitCmd(object):
         :param pwd: password in case of auth
         :param url: git repository's url
         """
-        if not work_dir or url:
+        if not work_dir and url:
             raise Exception("Must have repository ")
         if url and not work_dir:
             work_dir = url.rsplit(".git", 1)[0].rsplit("/", 1)[1]
